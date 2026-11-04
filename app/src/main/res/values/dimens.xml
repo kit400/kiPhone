@@ -19,6 +19,11 @@
     <!-- in dp on purpose: must not scale with the font size setting -->
     <dimen name="recents_sim_id_text_size">13dp</dimen>
     <dimen name="recents_avatar_size">44dp</dimen>
+    <!-- grouped calls badge, same size as the SIM badge; dp so it ignores the font size setting -->
+    <dimen name="recents_badge_height">20dp</dimen>
+    <dimen name="recents_badge_min_width">26dp</dimen>
+    <dimen name="recents_badge_corner_radius">3dp</dimen>
+    <dimen name="recents_badge_horizontal_padding">6dp</dimen>
     <dimen name="bottom_tab_icon_size">36dp</dimen>
 
     <dimen name="caller_name_text_size">34sp</dimen>

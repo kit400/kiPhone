@@ -1,6 +1,7 @@
 package org.fossify.phone.adapters
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.provider.CallLog.Calls
 import android.text.SpannableString
@@ -487,8 +488,15 @@ class RecentCallsAdapter(
                     nameToShow = SpannableString("$name - ${call.specificType}")
                 }
 
-                if (call.groupedCalls != null) {
-                    nameToShow = SpannableString("$nameToShow (${call.groupedCalls.size})")
+                // kiPhone: grouped calls count is shown as a badge next to the time, not as "(2)" in the name
+                itemRecentsCount.apply {
+                    val count = call.groupedCalls?.size ?: 0
+                    beVisibleIf(count > 1)
+                    if (count > 1) {
+                        text = count.toString()
+                        backgroundTintList = ColorStateList.valueOf(properPrimaryColor)
+                        setTextColor(properPrimaryColor.getContrastColor())
+                    }
                 }
 
                 if (textToHighlight.isNotEmpty() && nameToShow.contains(textToHighlight, true)) {
