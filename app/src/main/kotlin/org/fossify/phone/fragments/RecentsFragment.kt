@@ -27,6 +27,7 @@ import org.fossify.phone.extensions.startAddContactIntent
 import org.fossify.phone.extensions.startCallWithConfirmationCheck
 import org.fossify.phone.extensions.startContactDetailsIntent
 import org.fossify.phone.helpers.RecentsHelper
+import org.fossify.phone.helpers.SwipeToCallHelper
 import org.fossify.phone.interfaces.RefreshItemsListener
 import org.fossify.phone.models.CallLogItem
 import org.fossify.phone.models.RecentCall
@@ -179,11 +180,25 @@ class RecentsFragment(
                 )
 
                 binding.recentsList.adapter = recentsAdapter
+                setupSwipeToCall()
                 recentsAdapter?.updateItems(recents)
             } else {
                 recentsAdapter?.updateItems(recents)
             }
         }
+    }
+
+    private fun setupSwipeToCall() {
+        SwipeToCallHelper(
+            recyclerView = binding.recentsList,
+            canSwipe = { position -> recentsAdapter?.currentList?.getOrNull(position) is RecentCall },
+            onSwipedLeft = { position ->
+                val recentCall = recentsAdapter?.currentList?.getOrNull(position) as? RecentCall
+                if (recentCall != null) {
+                    activity?.startCallWithConfirmationCheck(recentCall.phoneNumber, recentCall.name)
+                }
+            }
+        ).attach()
     }
 
     private fun refreshCallLog(loadAll: Boolean = false, callback: (() -> Unit)? = null) {

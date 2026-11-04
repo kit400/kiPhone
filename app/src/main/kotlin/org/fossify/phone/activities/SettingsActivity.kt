@@ -96,6 +96,7 @@ class SettingsActivity : SimpleActivity() {
         setupLanguage()
         setupManageBlockedNumbers()
         setupManageSpeedDial()
+        setupManageSim()
         setupChangeDateTimeFormat()
         setupFontSize()
         setupManageShownTabs()
@@ -196,6 +197,12 @@ class SettingsActivity : SimpleActivity() {
             Intent(this, ManageSpeedDialActivity::class.java).apply {
                 startActivity(this)
             }
+        }
+    }
+
+    private fun setupManageSim() {
+        binding.settingsManageSimHolder.setOnClickListener {
+            startActivity(Intent(this, ManageSimActivity::class.java))
         }
     }
 

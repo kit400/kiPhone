@@ -96,6 +96,22 @@ class Config(context: Context) : BaseConfig(context) {
         return formatted ?: PhoneNumberUtils.normalizeNumber(decoded)
     }
 
+    var simSelectionMode: Int
+        get() = prefs.getInt(SIM_SELECTION_MODE, SIM_MODE_MAIN)
+        set(simSelectionMode) = prefs.edit().putInt(SIM_SELECTION_MODE, simSelectionMode).apply()
+
+    /** [PhoneAccountHandle.getId] of the main SIM, empty = system default outgoing account */
+    var mainSimId: String
+        get() = prefs.getString(MAIN_SIM_ID, "")!!
+        set(mainSimId) = prefs.edit().putString(MAIN_SIM_ID, mainSimId).apply()
+
+    /** Raw comma separated prefixes ("039, 067, 068") for the SIM with the given [PhoneAccountHandle.getId] */
+    fun getSimPrefixes(simId: String): String = prefs.getString(SIM_PREFIXES_PREFIX + simId, "")!!
+
+    fun setSimPrefixes(simId: String, prefixes: String) {
+        prefs.edit().putString(SIM_PREFIXES_PREFIX + simId, prefixes).apply()
+    }
+
     var showTabs: Int
         get() = prefs.getInt(SHOW_TABS, ALL_TABS_MASK)
         set(showTabs) = prefs.edit().putInt(SHOW_TABS, showTabs).apply()

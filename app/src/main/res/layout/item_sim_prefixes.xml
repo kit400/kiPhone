@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.fossify.commons.views.MyTextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sim_prefixes_hint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/medium_margin"
+    android:paddingStart="@dimen/activity_margin"
+    android:paddingEnd="@dimen/activity_margin">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/sim_prefixes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:digits="0123456789+, "
+        android:singleLine="true"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/bigger_text_size" />
+
+</org.fossify.commons.views.MyTextInputLayout>

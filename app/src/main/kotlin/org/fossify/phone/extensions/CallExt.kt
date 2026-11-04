@@ -2,6 +2,7 @@ package org.fossify.phone.extensions
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.telecom.PhoneAccount
 import android.telecom.PhoneAccountHandle
 import android.telecom.TelecomManager
@@ -22,6 +23,9 @@ import org.fossify.phone.BuildConfig
 import org.fossify.phone.activities.DialerActivity
 import org.fossify.phone.activities.SimpleActivity
 import org.fossify.phone.dialogs.SelectSIMDialog
+import org.fossify.phone.helpers.SIM_MODE_ASK_AND_REMEMBER
+import org.fossify.phone.helpers.SIM_MODE_PREFIXES
+import org.fossify.phone.helpers.SimPrefixMatcher
 
 fun SimpleActivity.startCallIntent(
     recipient: String,
@@ -107,28 +111,73 @@ fun SimpleActivity.getHandleToUse(
             val defaultHandle =
                 telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL)
             when {
-                forceSimSelector -> showSelectSimDialog(phoneNumber, callback)
+                forceSimSelector -> showSelectSimDialog(phoneNumber, callback = callback)
                 intent?.hasExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE) == true -> {
                     callback(intent.getParcelableExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE)!!)
                 }
 
-                config.getCustomSIM(phoneNumber) != null -> {
-                    callback(config.getCustomSIM(phoneNumber))
+                else -> {
+                    val customSim = config.getCustomSIM(phoneNumber)
+                    if (customSim != null) {
+                        callback(customSim)
+                    } else {
+                        selectSimByMode(phoneNumber, defaultHandle, callback)
+                    }
                 }
-
-                defaultHandle != null -> callback(defaultHandle)
-                else -> showSelectSimDialog(phoneNumber, callback)
             }
         }
     }
 }
 
+private fun SimpleActivity.selectSimByMode(
+    phoneNumber: String,
+    defaultHandle: PhoneAccountHandle?,
+    callback: (handle: PhoneAccountHandle?) -> Unit
+) {
+    val sims = getAvailableSIMCardLabels()
+    val mainHandle = sims.firstOrNull { it.handle.id == config.mainSimId }?.handle ?: defaultHandle
+    val useMainSim = {
+        if (mainHandle != null) {
+            callback(mainHandle)
+        } else {
+            showSelectSimDialog(phoneNumber, callback = callback)
+        }
+    }
+
+    when (config.simSelectionMode) {
+        SIM_MODE_ASK_AND_REMEMBER -> {
+            if (sims.size > 1) {
+                showSelectSimDialog(phoneNumber, rememberByDefault = true, callback = callback)
+            } else {
+                useMainSim()
+            }
+        }
+
+        SIM_MODE_PREFIXES -> {
+            val prefixesBySim = sims.associate { sim ->
+                sim.handle.id to SimPrefixMatcher.parsePrefixes(config.getSimPrefixes(sim.handle.id))
+            }
+            val simId = SimPrefixMatcher.findSim(Uri.decode(phoneNumber), prefixesBySim)
+            val handle = sims.firstOrNull { it.handle.id == simId }?.handle
+            if (handle != null) {
+                callback(handle)
+            } else {
+                useMainSim()
+            }
+        }
+
+        else -> useMainSim()
+    }
+}
+
 fun SimpleActivity.showSelectSimDialog(
     phoneNumber: String,
+    rememberByDefault: Boolean = false,
     callback: (handle: PhoneAccountHandle?) -> Unit
 ) = SelectSIMDialog(
     activity = this,
     phoneNumber = phoneNumber,
+    rememberByDefault = rememberByDefault,
     onDismiss = {
         if (this is DialerActivity) {
             finish()

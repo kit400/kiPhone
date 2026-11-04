@@ -66,7 +66,6 @@
     <string name="import_call_history">Імпорт історії дзвінків</string>
     <string name="faq_1_title">Я чую вхідні дзвінки, але екран не вмикається. Що я можу зробити\?</string>
     <string name="faq_1_text">Такі проблеми можуть мати багато специфічних для пристрою та системи причин, важко сказати в цілому. Вам слід подивитися в налаштуваннях свого пристрою та переконатися, що застосунку дозволено відображати у фоновому режимі та дозволяти відображення над іншими застосунками.</string>
-    <string name="app_launcher_name">Телефон</string>
     <string name="asterisk">Зірочка</string>
     <string name="audio_route_bluetooth">Bluetooth</string>
     <string name="call_is_being_connected">Триває з\'єднання…</string>
@@ -77,4 +76,14 @@
     <string name="call_notification_channel">Стан дзвінка</string>
     <string name="call_notification_channel_high_priority">Стан виклику (високий пріоритет)</string>
     <string name="calling_accounts">Облікові записи для дзвінків</string>
+    <string name="manage_sim_cards">Керування SIM-картками</string>
+    <string name="sim_selection_mode">Вибір SIM для дзвінків</string>
+    <string name="sim_mode_main">Завжди з основної SIM</string>
+    <string name="sim_mode_ask_and_remember">Завжди питати та запам\'ятовувати вибір</string>
+    <string name="sim_mode_prefixes">За масками</string>
+    <string name="main_sim">Основна SIM</string>
+    <string name="system_default_sim">Як у системі</string>
+    <string name="sim_prefixes">Маски номерів</string>
+    <string name="sim_prefixes_description">Коди операторів через кому, наприклад 067, 068, 096. Номери, що не підійшли під жодну маску, набираються з основної SIM. SIM, запам\'ятована для конкретного номера, має пріоритет.</string>
+    <string name="fewer_than_two_sims">Знайдено менше двох SIM-карток. Ці налаштування працюють лише з кількома SIM.</string>
 </resources>

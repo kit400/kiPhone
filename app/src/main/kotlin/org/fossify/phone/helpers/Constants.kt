@@ -19,6 +19,14 @@ const val DIALPAD_VIBRATION = "dialpad_vibration"
 const val DIALPAD_BEEPS = "dialpad_beeps"
 const val HIDE_DIALPAD_NUMBERS = "hide_dialpad_numbers"
 const val ALWAYS_SHOW_FULLSCREEN = "always_show_fullscreen"
+const val SIM_SELECTION_MODE = "sim_selection_mode"
+const val MAIN_SIM_ID = "main_sim_id"
+const val SIM_PREFIXES_PREFIX = "sim_prefixes_"
+
+// SIM selection modes
+const val SIM_MODE_MAIN = 0
+const val SIM_MODE_ASK_AND_REMEMBER = 1
+const val SIM_MODE_PREFIXES = 2
 
 const val ALL_TABS_MASK = TAB_CONTACTS or TAB_FAVORITES or TAB_CALL_HISTORY
 

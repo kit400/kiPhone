@@ -19,6 +19,7 @@ import org.fossify.phone.extensions.getAvailableSIMCardLabels
 class SelectSIMDialog(
     val activity: BaseSimpleActivity,
     val phoneNumber: String,
+    rememberByDefault: Boolean = false,
     onDismiss: () -> Unit = {},
     val callback: (handle: PhoneAccountHandle?) -> Unit
 ) {
@@ -26,6 +27,7 @@ class SelectSIMDialog(
     private val binding by activity.viewBinding(DialogSelectSimBinding::inflate)
 
     init {
+        binding.selectSimRemember.isChecked = rememberByDefault
         binding.selectSimRememberHolder.setOnClickListener {
             binding.selectSimRemember.toggle()
         }
