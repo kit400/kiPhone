@@ -160,7 +160,7 @@ class RecentsFragment(
                     activity = activity as SimpleActivity,
                     recyclerView = binding.recentsList,
                     refreshItemsListener = this,
-                    showOverflowMenu = true,
+                    showOverflowMenu = false, // kiPhone: all actions are available via long tap
                     itemDelete = { deleted ->
                         allRecentCalls = allRecentCalls.filter { it !in deleted }
                     },

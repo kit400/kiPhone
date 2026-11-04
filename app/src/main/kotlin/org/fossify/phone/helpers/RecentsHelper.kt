@@ -45,9 +45,11 @@ class RecentsHelper(private val context: Context) {
 
                 this.queryLimit = queryLimit
                 val recentCalls = if (previousRecents.isNotEmpty()) {
+                    // refresh SIM colors of already loaded calls, they may have been changed in Manage SIM cards
+                    val simColors = context.getAvailableSIMCardLabels().associate { it.id to it.color }
                     val previousRecentCalls = previousRecents
                         .flatMap { it.groupedCalls ?: listOf(it) }
-                        .map { it.copy(groupedCalls = null) }
+                        .map { it.copy(groupedCalls = null, simColor = simColors[it.simID] ?: it.simColor) }
 
                     val newerRecents = getRecents(
                         contacts = contacts,

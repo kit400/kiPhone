@@ -83,7 +83,6 @@ class RecentCallsAdapter(
     private var missedCallColor = resources.getColor(R.color.color_missed_call)
     private var secondaryTextColor = textColor.adjustAlpha(0.6f)
     private var textToHighlight = ""
-    private var durationPadding = resources.getDimension(R.dimen.normal_margin).toInt()
     private var phoneNumberUtilInstance: PhoneNumberUtil = PhoneNumberUtil.getInstance()
     private var phoneNumberOfflineGeocoderInstance: PhoneNumberOfflineGeocoder = PhoneNumberOfflineGeocoder.getInstance()
     private val cachedSimColors = HashMap<Pair<Int,Int>, Int>()
@@ -526,9 +525,6 @@ class RecentCallsAdapter(
                     setTextColor(textColor)
                     beVisibleIf(shouldShowDuration)
                     setTextSize(TypedValue.COMPLEX_UNIT_PX, currentFontSize * 0.8f)
-                    if (!showOverflowMenu) {
-                        itemRecentsDuration.setPadding(0, 0, durationPadding, 0)
-                    }
                 }
 
                 itemRecentsLocation.apply {
@@ -655,6 +651,7 @@ class RecentCallsDiffCallback : DiffUtil.ItemCallback<CallLogItem>() {
                         oldItem.duration == newItem.duration &&
                         oldItem.type == newItem.type &&
                         oldItem.simID == newItem.simID &&
+                        oldItem.simColor == newItem.simColor &&
                         oldItem.specificNumber == newItem.specificNumber &&
                         oldItem.specificType == newItem.specificType &&
                         oldItem.isUnknownNumber == newItem.isUnknownNumber &&
