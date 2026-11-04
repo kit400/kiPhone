@@ -102,6 +102,7 @@
     <string name="sim_prefixes">Number prefixes</string>
     <string name="sim_prefixes_description">Operator codes separated by commas, e.g. 067, 068, 096. Numbers matching no prefix are dialed from the main SIM. A SIM remembered for a specific number takes priority.</string>
     <string name="sim_prefixes_hint" translatable="false">039, 067, 068, 096</string>
+    <string name="sim_colors">SIM colors</string>
     <string name="fewer_than_two_sims">Fewer than two SIM cards found. These settings take effect only with multiple SIMs.</string>
     <!--
         Haven't found some strings? There's more at

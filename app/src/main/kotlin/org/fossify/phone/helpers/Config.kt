@@ -112,6 +112,17 @@ class Config(context: Context) : BaseConfig(context) {
         prefs.edit().putString(SIM_PREFIXES_PREFIX + simId, prefixes).apply()
     }
 
+    /** Custom color for the SIM with the given [PhoneAccountHandle.getId], 0 = use the system color */
+    fun getSimColor(simId: String): Int = prefs.getInt(SIM_COLOR_PREFIX + simId, 0)
+
+    fun setSimColor(simId: String, color: Int) {
+        prefs.edit().putInt(SIM_COLOR_PREFIX + simId, color).apply()
+    }
+
+    fun removeSimColor(simId: String) {
+        prefs.edit().remove(SIM_COLOR_PREFIX + simId).apply()
+    }
+
     var showTabs: Int
         get() = prefs.getInt(SHOW_TABS, ALL_TABS_MASK)
         set(showTabs) = prefs.edit().putInt(SHOW_TABS, showTabs).apply()

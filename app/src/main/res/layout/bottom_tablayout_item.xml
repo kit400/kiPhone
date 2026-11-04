@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- kiPhone: overrides the commons layout - icon only, bigger, no text label -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab_item_holder"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/medium_margin"
+    android:paddingBottom="@dimen/medium_margin">
+
+    <ImageView
+        android:id="@+id/tab_item_icon"
+        android:layout_width="@dimen/bottom_tab_icon_size"
+        android:layout_height="@dimen/bottom_tab_icon_size"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/ic_person_vector" />
+
+    <!-- kept (hidden) because the tab coloring code looks it up by id -->
+    <TextView
+        android:id="@+id/tab_item_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>

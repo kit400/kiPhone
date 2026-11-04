@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="22dp"
+    android:viewportWidth="30"
+    android:viewportHeight="22">
+    <!-- commons ic_sim_vector rotated to landscape, cut corner at the top right -->
+    <group
+        android:pivotX="12"
+        android:pivotY="12"
+        android:rotation="90"
+        android:scaleX="1.15"
+        android:scaleY="1.15"
+        android:translateX="3"
+        android:translateY="-1">
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M20.65 3.338c0-1.19-0.963-2.165-2.154-2.165H9.835L3.338 7.669v12.992c0 1.191 0.975 2.166 2.166 2.166h13.003c1.19 0 2.155-0.974 2.155-2.165z" />
+    </group>
+</vector>

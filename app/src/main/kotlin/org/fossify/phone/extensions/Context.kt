@@ -47,7 +47,8 @@ fun Context.getAvailableSIMCardLabels(): List<SIMAccount> {
                     handle = phoneAccount.accountHandle,
                     label = label,
                     phoneNumber = address.substringAfter("tel:"),
-                    color = phoneAccount.highlightColor
+                    color = config.getSimColor(phoneAccount.accountHandle.id).takeIf { it != 0 }
+                        ?: phoneAccount.highlightColor
                 )
             )
         }

@@ -1,10 +1,14 @@
 package org.fossify.phone.activities
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import com.google.android.material.textfield.TextInputEditText
+import org.fossify.commons.dialogs.ColorPickerDialog
 import org.fossify.commons.dialogs.RadioGroupDialog
+import org.fossify.commons.extensions.adjustAlpha
 import org.fossify.commons.extensions.beVisibleIf
 import org.fossify.commons.extensions.getProperPrimaryColor
+import org.fossify.commons.extensions.getProperTextColor
 import org.fossify.commons.extensions.updateTextColors
 import org.fossify.commons.extensions.viewBinding
 import org.fossify.commons.helpers.NavigationIcon
@@ -12,6 +16,7 @@ import org.fossify.commons.helpers.PERMISSION_READ_PHONE_STATE
 import org.fossify.commons.models.RadioItem
 import org.fossify.phone.R
 import org.fossify.phone.databinding.ActivityManageSimBinding
+import org.fossify.phone.databinding.ItemSimColorBinding
 import org.fossify.phone.databinding.ItemSimPrefixesBinding
 import org.fossify.phone.extensions.config
 import org.fossify.phone.extensions.getAvailableSIMCardLabels
@@ -55,9 +60,46 @@ class ManageSimActivity : SimpleActivity() {
         binding.manageSimFewerThanTwo.beVisibleIf(sims.size < 2)
         setupMode()
         setupMainSim()
+        setupColors()
         setupPrefixes()
         updateTextColors(binding.manageSimHolder)
+        binding.manageSimColorsLabel.setTextColor(getProperPrimaryColor())
         binding.manageSimPrefixesLabel.setTextColor(getProperPrimaryColor())
+    }
+
+    private fun setupColors() {
+        binding.manageSimColorsHolder.removeAllViews()
+        sims.forEach { sim ->
+            val item = ItemSimColorBinding.inflate(layoutInflater, binding.manageSimColorsHolder, true)
+            item.simColorLabel.text = getSimTitle(sim)
+            item.simColorSwatch.setImageDrawable(getColorSwatch(sim.color))
+            item.simColorHolder.setOnClickListener {
+                // "Default color" returns 0 -> back to the color set by the system
+                ColorPickerDialog(this, sim.color, addDefaultColorButton = true) { wasPositivePressed, color ->
+                    if (wasPositivePressed) {
+                        if (color == 0) {
+                            config.removeSimColor(sim.handle.id)
+                        } else {
+                            config.setSimColor(sim.handle.id, color)
+                        }
+                        reloadSims()
+                    }
+                }
+            }
+        }
+        updateTextColors(binding.manageSimColorsHolder)
+    }
+
+    private fun reloadSims() {
+        savePrefixes()
+        sims = getAvailableSIMCardLabels().sortedBy { it.id }
+        setupViews()
+    }
+
+    private fun getColorSwatch(color: Int) = GradientDrawable().apply {
+        shape = GradientDrawable.OVAL
+        setColor(color)
+        setStroke(resources.displayMetrics.density.toInt().coerceAtLeast(1), getProperTextColor().adjustAlpha(0.4f))
     }
 
     private fun setupMode() {

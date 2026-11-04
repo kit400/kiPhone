@@ -22,6 +22,7 @@ const val ALWAYS_SHOW_FULLSCREEN = "always_show_fullscreen"
 const val SIM_SELECTION_MODE = "sim_selection_mode"
 const val MAIN_SIM_ID = "main_sim_id"
 const val SIM_PREFIXES_PREFIX = "sim_prefixes_"
+const val SIM_COLOR_PREFIX = "sim_color_"
 
 // SIM selection modes
 const val SIM_MODE_MAIN = 0

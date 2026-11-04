@@ -12,6 +12,12 @@
     <dimen name="call_control_button_size">72dp</dimen>
     <dimen name="recyclerview_fab_padding">100dp</dimen>
 
+    <!-- kiPhone -->
+    <dimen name="sim_color_swatch_size">28dp</dimen>
+    <dimen name="recents_sim_icon_width">30dp</dimen>
+    <dimen name="recents_sim_icon_height">22dp</dimen>
+    <dimen name="bottom_tab_icon_size">36dp</dimen>
+
     <dimen name="caller_name_text_size">34sp</dimen>
     <dimen name="call_status_text_size">20sp</dimen>
 

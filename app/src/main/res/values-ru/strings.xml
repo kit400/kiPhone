@@ -85,5 +85,6 @@
     <string name="system_default_sim">Как в системе</string>
     <string name="sim_prefixes">Маски номеров</string>
     <string name="sim_prefixes_description">Коды операторов через запятую, например 067, 068, 096. Номера, не подошедшие ни под одну маску, набираются с основной SIM. SIM, запомненная для конкретного номера, имеет приоритет.</string>
+    <string name="sim_colors">Цвета SIM</string>
     <string name="fewer_than_two_sims">Найдено меньше двух SIM-карт. Эти настройки работают только при нескольких SIM.</string>
 </resources>
